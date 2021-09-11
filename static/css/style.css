@@ -1,11 +1,172 @@
-html {overflow-y: scroll}
-:root { --bgcolor: white; --fontcolor: #444; --linkcolor: #00e; --visitedcolor: #551a8b; --precolor: #fff; --prebgcolor: #000;}
-@media (prefers-color-scheme: dark) { :root { --bgcolor: black; --fontcolor: white; --linkcolor: #5bf; --visitedcolor: #ae5ee0; --precolor: #fff; --prebgcolor: #383838;}}
-body{max-width:800px;margin:40px auto;padding:0 10px;font:14px/1.5 monospace;color:var(--fontcolor); background: var(--bgcolor)}a:link{color: var(--linkcolor)}a:visited{color: var(--visitedcolor)}a:active{color: var(--visitedcolor)}h1,h2,h3{line-height:1.2}
-p > code{color: var(--precolor); background: var(--prebgcolor); padding:2px}
-pre{color: var(--precolor); background: var(--prebgcolor); padding:24px; overflow-x: auto}
-article{padding:24px 0}
-.center {display: block;margin-left: auto;margin-right: auto;width: 100%;}
-figcaption {color: #888; font: 12px/1.5 monospace; text-align: center;}
-figure {margin: auto}
-img {display: block; max-width: 100%; height: auto; margin: auto}
+html {
+  overflow-y: scroll;
+  font-size: 1em;
+}
+:root {
+  --externalicon: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20class='i-external'%20viewBox='0%200%2032%2032'%20width='14'%20height='14'%20fill='none'%20stroke='%23ff9800'%20stroke-linecap='round'%20stroke-linejoin='round'%20stroke-width='9.38%'%3E%3Cpath%20d='M14%209%20L3%209%203%2029%2023%2029%2023%2018%20M18%204%20L28%204%2028%2014%20M28%204%20L14%2018'/%3E%3C/svg%3E");
+
+  --orange: #ff9800;
+  --green: rgba(48, 163, 0, 1);
+
+  --bgcolor: white;
+  --fontcolor: black;
+  --linkcolor: var(--green);
+  --visitedcolor: var(--linkcolor);
+  --activecolor: white;
+  --activebgcolor: var(--linkcolor);
+
+  --highlightcolor: #f8f8f2;
+  --highlightbgcolor: #272822;
+  --precolor: var(--highlightcolor);
+  --prebgcolor: var(--highlightbgcolor);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bgcolor: black;
+    --fontcolor: white;
+    --precolor: #fff;
+    --prebgcolor: #383838;
+  }
+}
+
+@media only screen {
+  .blur-up {
+    -webkit-filter: blur(5px);
+    filter: blur(5px);
+    transition: filter 400ms, -webkit-filter 400ms;
+  }
+  .blur-up.lazyloaded {
+    -webkit-filter: blur(0);
+    filter: blur(0);
+  }
+}
+
+body {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 10px;
+  font-size: 1rem;
+  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+    Bitstream Vera Sans Mono, Courier New, monospace, serif;
+  color: var(--fontcolor);
+  background: var(--bgcolor);
+}
+a:link {
+  color: var(--linkcolor);
+}
+a:visited {
+  color: var(--visitedcolor);
+}
+a:active {
+  color: var(--visitedcolor);
+}
+
+a[href*="//"]::after
+{
+  content: " " var(--externalicon);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 1rem;
+  line-height: 1.3em;
+}
+
+h1 {
+  position: relative;
+  display: table-cell;
+  padding: 1rem 0 2rem;
+  overflow: hidden;
+}
+
+h1::after {
+  color: var(--color);
+  content: "====================================================================================================";
+  position: absolute;
+  left: 0;
+  bottom: 10px;
+}
+
+h2::before {
+  content: "## ";
+}
+h3::before {
+  content: "### ";
+}
+h4::before {
+  content: "#### ";
+}
+h5::before {
+  content: "##### ";
+}
+h6::before {
+  content: "###### ";
+}
+
+pre code {
+  font-size: 85%;
+}
+
+p > code {
+  font-weight: 700;
+}
+
+p > code::before,
+p > code::after {
+  content: "`";
+}
+
+pre {
+  color: var(--precolor);
+  background: var(--prebgcolor);
+  padding: 1rem;
+  overflow-x: auto;
+}
+article {
+  padding: 24px 0;
+}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+figcaption,
+p.code-legend {
+  color: #888;
+  font: 12px/1.5 monospace;
+  text-align: center;
+  font-weight: 700;
+}
+
+figure {
+  margin: auto;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: auto;
+}
+
+/** page header */
+
+header.page-header a {
+  --linkcolor: var(--orange);
+  --visitedcolor: var(--orange);
+  border-bottom: 1px solid var(--green);
+  text-decoration: none;
+  display: inline-block;
+}
+
+header.page-header nav a.active {
+  background-color: var(--activebgcolor);
+  color: var(--activecolor);
+}

@@ -1,0 +1,6 @@
+<figure {{ with .Get "class" }}class="{{ . }}"{{ end }}>
+  <img class="lazyload blur-up" data-src="{{ .Get "src" }}" />
+  {{ with (default (.Get "title") (.Get "caption")) }}
+    <figcaption>{{ . }}</figcaption>
+  {{ end }}
+</figure>

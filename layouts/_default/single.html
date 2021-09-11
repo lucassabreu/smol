@@ -1,16 +1,29 @@
 {{ define "main" }}
-	<main>
-		<article>
-			<h1>{{ .Title }}</h1>
-			<b><time>{{ .Date.Format (default "2006-01-02 15:04:05" .Site.Params.dateFmt) }}</time></b>
-		       {{ range .Params.tags }}
-		           <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}">{{ . }}</a>
-        	       {{ end }}
+  <main>
+    <article>
+      <header>
+        <h1>{{ .Title }}</h1>
+        <time aria-label="published at"
+          >{{ .Date.Format (default "2006-01-02 15:04:05" .Site.Params.dateFmt) }}</time
+        >
+        {{ with .ReadingTime }}
+          <span class="reading-time">{{ . }} minute read</span>
+        {{ end }}
+        {{ range .Params.tags }}
+          <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}">{{ . }}</a>
+        {{ end }}
+      </header>
 
-			<div>
-				{{ .Content }}
-			</div>
-		</article>
-	</main>
-{{ partial "sidebar.html" . }}
+      <div class="content" role="content">
+        {{ .Content }}
+      </div>
+
+      {{ if .Site.DisqusShortname }}
+        <section araria-current="com" role="coment">
+          {{ template "_internal/disqus.html" . }}
+        </section>
+      {{ end }}
+    </article>
+  </main>
+  {{ partial "sidebar.html" . }}
 {{ end }}
