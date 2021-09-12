@@ -8,10 +8,10 @@ features = ["blog", "privacy", "responsive", "fast"]
 min_version = "0.20"
 
 [author]
-  name = "morph"
-  homepage = "morph.sh"
+  name = "lucassabreu"
+  homepage = "https://github.com/lucassabreu/smol"
 
 [original]
-  author = "Vimux"
-  homepage = "https://github.com/Vimux"
-  repo = "https://github.com/Vimux/blank"
+  author = "colorchestra"
+  homepage = "https://github.com/colorchestra/smol"
+  repo = "https://github.com/colorchestra/smol"
