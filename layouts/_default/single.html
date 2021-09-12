@@ -13,7 +13,7 @@
 					{{ end }}
 					<span class="published-at">
 						Published:
-						<time
+						<time datetime="{{ .Date }}"
 							>{{ .Date.Format (default "2006-01-02 15:04:05" .Site.Params.dateFmt) }}</time
 						>
 					</span>
