@@ -1,0 +1,3 @@
+{{- if and (.Params.toc) (gt .WordCount .Site.Params.tocMinWordCount ) }}
+	{{ replace .TableOfContents  "id=\"TableOfContents\">" "role=\"navigation\" class=\"toc\"><strong>TOC</strong>" | safeHTML }}
+{{ end }}
