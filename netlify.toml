@@ -1,3 +1,3 @@
 [build]
   command = "cli/tests.sh"
-  publish = "example/public"
+  publish = "example/public/"
