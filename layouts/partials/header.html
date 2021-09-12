@@ -1,18 +1,20 @@
 {{ $currentPage := . }}
 <header class="page-header">
-  {{ with .Site.Menus.main }}
-    <nav arial-label="primary">
-      {{ range . }}
-        {{ $relUrl := .URL | relLangURL }}
-        <a
-          href="{{ $relUrl }}"
-          {{ if eq $relUrl ($currentPage.RelPermalink | relLangURL) }}
-            class="active" aria-current="location"
-          {{ end }}
-          >{{ .Name }}</a
-        >
-      {{ end }}
-    </nav>
-  {{ end }}
-  <h1>{{ .Site.Title }}</h1>
+	{{ with .Site.Menus.main }}
+		<nav arial-label="primary" role="menu">
+			{{ range . }}
+				{{ $relUrl := .URL | relLangURL }}
+				<a
+					href="{{ $relUrl }}"
+					{{ if eq $relUrl ($currentPage.RelPermalink | relLangURL) }}
+						class="active" aria-current="location"
+					{{ end }}
+					>{{ .Name }}</a
+				>
+			{{ end }}
+		</nav>
+	{{ end }}
+	{{ if eq .Site.Title .Title }}
+		<h1>{{ .Site.Title }}</h1>
+	{{ end }}
 </header>

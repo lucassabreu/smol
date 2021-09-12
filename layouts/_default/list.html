@@ -1,26 +1,23 @@
 {{ define "main" }}
-	<main>
+	<main id="main">
 		{{ $listtitle := .Title }}
 		{{ if or .Title .Content }}
-		<div>
-			{{ with .Title }}<h1>{{ . }}</h1>{{ end }}
-			{{ with .Content }}<div>{{ . }}</div>{{ end }}
-		</div>
+			<header>
+				{{ with .Title }}<h1>{{ . }}</h1>{{ end }}
+				{{ with .Param "images" }}
+					{{ with index . 0 }}
+						<figure class="big">
+							<img class="lazyload blur-up" data-src="{{ .|relURL }}" />
+						</figure>
+					{{ end }}
+				{{ end }}
+				{{ with .Content }}<p>{{ . }}</p>{{ end }}
+			</header>
 		{{ end }}
 
-		<ul>
-		    {{ range .Paginator.Pages }}
-		    <li>
-		        <div class="post-title">
-				{{ if eq $listtitle "Posts" }}
-				    {{ .Date.Format "2006-01-02" }} <a href="{{ .RelPermalink }}">{{.Title }}</a>
-				{{ else }}
-				    <a href="{{ .RelPermalink }}">{{.Title }}</a>
-				{{ end }}
-		        </div>
-		    </li>
-		    {{ end }}
-		</ul>
+		{{ range .Paginator.Pages }}
+			{{ .Render "summary" }}
+		{{ end }}
 		{{ partial "pagination.html" . }}
 	</main>
 {{ end }}

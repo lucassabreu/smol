@@ -1,19 +1,22 @@
 <article class="article-summary">
 	<header>
 		<h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
-		{{ with .ReadingTime }}
-			<span class="reading-time">{{ . }} minute read</span>
-		{{ end }}
-		<span class="published-at">
-			Published:
-			<time
-				>{{ .Date.Format (default "2006-01-02 15:04:05" .Site.Params.dateFmt) }}</time
-			>
-		</span>
-		{{ range .Params.tags }}
-			<a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}">{{ . }}</a>
-		{{ end }}
+		<p>
+			{{ with .ReadingTime }}
+				<span class="reading-time">{{ . }} minute read</span>
+			{{ end }}
+			<span class="published-at">
+				Published:
+				<time
+					>{{ .Date.Format (default "2006-01-02 15:04:05" .Site.Params.dateFmt) }}</time
+				>
+			</span>
+			{{ range .Params.tags }}
+				<a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}">{{ . }}</a>
+			{{ end }}
+		</p>
 	</header>
+
 	<p>
 		{{ default .Summary .Description }}
 		{{ if and (eq .Description "") .Truncated }}
