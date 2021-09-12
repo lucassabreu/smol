@@ -271,6 +271,10 @@ article section::before {
   background-repeat: repeat-x;
 }
 
+article section hr:nth-child(1) {
+  display: none;
+}
+
 aside *:first-child {
   margin-top: var(--paragraphmargin);
 }

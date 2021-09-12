@@ -13,9 +13,9 @@
 		</time>
 		{{ with .Params.categories }}
 			in
-			<span itemprop="articleSection"
-				>{{ delimit (apply (apply (sort .) "partial" "post/category-link.html" ".") "chomp" ".") ", " " and " }}</span
-			>
+			<span class="categories">
+				{{ delimit (apply (apply (sort .) "partial" "category-link.html" ".") "chomp" ".") ", " " and " }}
+			</span>
 		{{ end }}
 		{{ with .Params.tags }}
 			and tagged
