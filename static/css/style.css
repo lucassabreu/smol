@@ -262,9 +262,30 @@ article nav.toc {
   margin-top: var(--paragraphmargin);
 }
 
-article nav.toc > ol:first-of-type {
+article nav.toc > ol {
   margin: 0;
   margin-top: 1rem;
+}
+
+article nav.toc ol {
+  list-style-type: none;
+  counter-reset: item;
+  padding: 0;
+}
+
+article nav.toc ol > li {
+  display: table;
+  counter-increment: item;
+}
+
+article nav.toc ol > li:before {
+  content: counters(item, ".") ". ";
+  display: table-cell;
+  padding-right: 1ex;
+}
+
+article nav.toc li ol > li {
+  margin: 0;
 }
 
 article div.content {
