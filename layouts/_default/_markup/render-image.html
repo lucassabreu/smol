@@ -1,12 +1,18 @@
 {{- $url := urls.Parse .Destination -}}
 {{- $attr := $url.Fragment -}}
-
-
+{{- $img := (.Page.Resources.GetMatch $url.Path) -}}
+{{ if and (eq $img nil) (fileExists $url.Path) }}
+	{{ $img = (printf "content/%s" $url.Path)| imageConfig }}
+{{ end }}
 <figure {{ with $attr }}{{ . | safeHTMLAttr }}{{ end }}>
 	<img
 		class="lazyload blur-up"
+		loading="lazy"
 		data-src="{{ .Destination | replaceRE "#.*$" "" | safeURL }}"
 		alt="{{ .Text }}"
+		{{ with $img }}
+			width="{{ .Width }}" height="{{ .Height }}"
+		{{ end }}
 	/>
 	{{ with .Title }}
 		<figcaption><p>{{ . }}</p></figcaption>
