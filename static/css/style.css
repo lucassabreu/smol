@@ -144,8 +144,8 @@ pre code {
 }
 
 p,
-hr {
-  text-align: justify;
+hr,
+dl {
   margin-top: var(--paragraphmargin);
   margin-bottom: var(--paragraphmargin);
 }
@@ -193,7 +193,7 @@ figure.big img {
 
 figcaption p,
 p.code-legend {
-  margin-top: 0;
+  margin-top: calc(var(--paragraphmargin) / 2);
   font-size: 80%;
   text-align: center;
   font-weight: 700;
@@ -227,6 +227,10 @@ footer {
 
 /** article */
 
+article * {
+  text-align: justify;
+}
+
 header h1,
 header h2 {
   margin-bottom: 0.5rem;
@@ -255,11 +259,16 @@ header .reading-time::before {
   bottom: -2px;
 }
 
-article nav.toc {
+article nav.toc,
+dl {
   background-color: var(--emphasisbgcolor);
   padding: 2rem;
   margin: 0 -1rem;
   margin-top: var(--paragraphmargin);
+}
+
+dl {
+  margin-bottom: var(--paragraphmargin);
 }
 
 article nav.toc > ol {
