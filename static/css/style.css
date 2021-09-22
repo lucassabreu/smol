@@ -301,6 +301,18 @@ article div.content {
   margin-top: var(--paragraphmargin);
 }
 
+article table pre {
+  margin: 0;
+}
+
+table tr td:first-of-type pre {
+  padding-right: 0;
+}
+
+table tr td:last-of-type pre {
+  padding-left: 0;
+}
+
 hr {
   height: 1em;
   border: 0;
