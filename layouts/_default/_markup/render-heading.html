@@ -1,0 +1,1 @@
+<h{{ .Level }} id="{{ .Anchor | safeURL }}">{{ .Text | safeHTML }} {{ if .Page.Site.Params.headingAnchors }} <a href="#{{ .Anchor | safeURL }}" class="heading-anchor">¶</a>{{ end }}</h{{ .Level }}>

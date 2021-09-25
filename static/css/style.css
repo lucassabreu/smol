@@ -97,6 +97,10 @@ h6 {
   color: var(--fontcolor);
 }
 
+a.heading-anchor:link {
+  text-decoration: none;
+}
+
 h1 {
   margin: 0;
   position: relative;
