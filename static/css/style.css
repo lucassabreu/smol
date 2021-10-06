@@ -81,7 +81,8 @@ a:active {
 
 a[href*="//"]::after
 {
-  content: " " var(--externalicon);
+  content: var(--externalicon);
+  margin-left: 0.5ex;
 }
 
 h1,
