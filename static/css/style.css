@@ -283,15 +283,11 @@ header .reading-time::before {
 }
 
 article nav.toc,
-dl {
+div.feature {
   background-color: var(--emphasisbgcolor);
-  padding: 2rem;
-  margin: 0 -1rem;
+  padding: calc(2rem - var(--paragraphmargin)) 2rem;
+  margin: 0 -2rem;
   margin-top: var(--paragraphmargin);
-}
-
-dl {
-  margin-bottom: var(--paragraphmargin);
 }
 
 article nav.toc > ol {
