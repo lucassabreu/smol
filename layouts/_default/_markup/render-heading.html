@@ -1,7 +1,10 @@
 <h{{ .Level }} id="{{ .Anchor | safeURL }}">
 	{{ .Text | safeHTML }}
 	{{ if .Page.Site.Params.headingAnchors }}
-		<a href="#{{ .Anchor | safeURL }}" class="heading-anchor">
+		<a href="#{{ .Anchor | safeURL }}" class="heading-anchor"
+			aria-label="copy link to this section"
+			title="Copy link to this section"
+			>
 			<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 512 512">
 				<g>
 					<g>

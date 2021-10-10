@@ -22,13 +22,11 @@
 
 			{{ partial "toc.html" . }}
 
-
 			<div class="content" role="content">
 				{{ .Content }}
 			</div>
 
 			{{- partial "share.html" . -}}
-
 
 			<footer>
 				{{ if .Site.DisqusShortname }}
@@ -43,4 +41,5 @@
 		</article>
 	</main>
 	{{ partial "sidebar.html" . }}
+	<a href="#main" id="back-to-top">Back to the top</a>
 {{ end }}
