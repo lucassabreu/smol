@@ -1,9 +1,10 @@
 <meta itemprop="name" content="{{ .Title }}">
-<meta name="og:title" content="{{ .Title }}">
+<meta property="og:title" content="{{ .Title }}">
 <meta itemprop="description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
-<meta name="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
-<meta name="og:url" content="{{ .Permalink }}">
-<meta name="og:site_name" content="{{ .Site.Title }}">
+<meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:site_name" content="{{ .Site.Title }}">
+<meta property="og:type" content="{{ default .Params.type "article" }}">
 
 {{- if .IsPage -}}
 {{- $iso8601 := "2006-01-02T15:04:05-07:00" -}}
@@ -19,28 +20,28 @@
 	{{- $featured := $images.GetMatch "*feature*" -}}
 	{{- if not $featured }}{{ $featured = $images.GetMatch "{*cover*,*thumbnail*}" }}{{ end -}}
 	{{- with $featured -}}
-		{{ $image = $featured.Permalink }}
+		{{ $image = $featured }}
 	{{- else -}}
 		{{- with $.Site.Params.images -}}{{ $image = index . 0 | absURL }}{{ end -}}
 	{{- end -}}
 {{- end -}}
 
-{{ with $image }}
-	<meta itemprop="image" content="{{ $image }}"/>
-	<meta name="og:image" content="{{ $image }}"/>
+{{- with $image -}}
+	{{- $image = $image.Fit "600x300 jpg" -}}
+	<meta property="og:image" content="{{ $image.Permalink }}"/>
 	<meta name="twitter:card" content="summary_large_image">
-{{ else }}
+{{- else -}}
 	<meta name="twitter:card" content="summary">
-{{ end }}
+{{- end -}}
 
-{{ range .Site.Author }}
-	<meta name="author" content="{{ . }}">
-{{ end }}
+{{- range .Site.Author -}}
+	<meta property="author" content="{{ . }}">
+{{- end -}}
 
-{{ with .Site.Params.Twitter }}
+{{- with .Site.Params.Twitter -}}
 	<meta name="twitter:creator" content="{{ . }}">
 	<meta name="twitter:site" content="{{ . }}">
-{{ end }}
+{{ end -}}
 
 <!-- Output all taxonomies as schema.org keywords -->
 <meta itemprop="keywords" content="{{ if .IsPage}}{{ range $index, $tag := .Params.tags }}{{ $tag }},{{ end }}{{ else }}{{ range $plural, $terms := .Site.Taxonomies }}{{ range $term, $val := $terms }}{{ printf "%s," $term }}{{ end }}{{ end }}{{ end }}" />
