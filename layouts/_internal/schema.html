@@ -5,6 +5,7 @@
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:site_name" content="{{ .Site.Title }}">
 <meta property="og:type" content="{{ default .Params.type "article" }}">
+<meta property="og:locale" content="{{ .Site.LanguageCode | default "en-us" }}">
 
 {{- if .IsPage -}}
 {{- $iso8601 := "2006-01-02T15:04:05-07:00" -}}
@@ -14,10 +15,23 @@
 
 {{ $image := "" }}
 {{- with $.Params.images -}}
-	{{- range first 6 . -}}<meta itemprop="image" content="{{ . | absURL }}">{{ end -}}
+	{{- range first 6 . -}}
+		{{- $file := . -}}
+		{{- if and (not (findRE "^(http)" $file)) (not (fileExists $file)) -}}
+			{{ $file = path.Join $.Page.Dir $file }}
+		{{- end -}}
+		{{- if not $image -}}
+			{{- if fileExists $file -}}
+				{{- $image = readFile $file | resources.FromString (printf "feature/%s" $file) -}}
+			{{- else -}}
+				{{- $image = $file -}}
+			{{- end -}}
+		{{- end -}}
+		<meta itemprop="image" content="{{ . | absURL }}">
+	{{ end -}}
 {{- else -}}
 	{{- $images := $.Resources.ByType "image" -}}
-	{{- $featured := $images.GetMatch "*feature*" -}}
+	{{- $featured := $images.GetMatch "{*feature*,*header*}" -}}
 	{{- if not $featured }}{{ $featured = $images.GetMatch "{*cover*,*thumbnail*}" }}{{ end -}}
 	{{- with $featured -}}
 		{{ $image = $featured }}
@@ -27,10 +41,13 @@
 {{- end -}}
 
 {{- with $image -}}
-	{{- $white := (resources.Get "white.png").Fill "600x300" -}}
-	{{- $image = $image.Fit "600x300" -}}
-	{{- $image = $white.Filter (images.Overlay $image (div (sub 600 $image.Width) 2) (div (sub 300 $image.Height) 2)) -}}
-	<meta property="og:image" content="{{ $image.Permalink }}"/>
+	{{ if not (eq $image (string $image)) }}
+		{{- $white := (resources.Get "white.png").Fill "600x300" -}}
+		{{- $image = $image.Fit "600x300" -}}
+		{{- $image = $white.Filter (images.Overlay $image (div (sub 600 $image.Width) 2) (div (sub 300 $image.Height) 2)) -}}
+		{{- $image = $image.Permalink -}}
+	{{ end }}
+	<meta property="og:image" content="{{ $image }}"/>
 	<meta name="twitter:card" content="summary_large_image">
 {{- else -}}
 	<meta name="twitter:card" content="summary">
