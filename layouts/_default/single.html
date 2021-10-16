@@ -18,6 +18,20 @@
 						>
 					</span>
 				</p>
+
+				{{- $images := $.Resources.ByType "image" -}}
+				{{- $featured := $images.GetMatch "*feature*" -}}
+				{{- with $featured -}}
+					<figure class="big">
+						<img
+							class="lazyload blur-up feature"
+							loading="lazy"
+							data-src="{{ .Permalink }}"
+							alt="cover image"
+								width="{{ .Width }}" height="{{ .Height }}"
+						/>
+					</figure>
+				{{- end }}
 			</header>
 
 			{{ partial "toc.html" . }}
