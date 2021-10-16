@@ -27,7 +27,9 @@
 {{- end -}}
 
 {{- with $image -}}
-	{{- $image = $image.Fit "600x300 jpg" -}}
+	{{- $white := (resources.Get "white.png").Fill "600x300" -}}
+	{{- $image = $image.Fit "600x300" -}}
+	{{- $image = $white.Filter (images.Overlay $image (div (sub 600 $image.Width) 2) (div (sub 300 $image.Height) 2)) -}}
 	<meta property="og:image" content="{{ $image.Permalink }}"/>
 	<meta name="twitter:card" content="summary_large_image">
 {{- else -}}
