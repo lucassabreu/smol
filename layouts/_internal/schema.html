@@ -1,9 +1,9 @@
 <meta itemprop="name" content="{{ .Title }}">
-<meta itemprop="og:title" content="{{ .Title }}">
+<meta name="og:title" content="{{ .Title }}">
 <meta itemprop="description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
-<meta itemprop="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
-<meta itemprop="og:url" content="{{ .Permalink }}">
-<meta itemprop="og:site_name" content="{{ .Site.Title }}">
+<meta name="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
+<meta name="og:url" content="{{ .Permalink }}">
+<meta name="og:site_name" content="{{ .Site.Title }}">
 
 {{- if .IsPage -}}
 {{- $iso8601 := "2006-01-02T15:04:05-07:00" -}}
@@ -27,7 +27,7 @@
 
 {{ with $image }}
 	<meta itemprop="image" content="{{ $image }}"/>
-	<meta itemprop="og:image" content="{{ $image }}"/>
+	<meta name="og:image" content="{{ $image }}"/>
 	<meta name="twitter:card" content="summary_large_image">
 {{ else }}
 	<meta name="twitter:card" content="summary">
