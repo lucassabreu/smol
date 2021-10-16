@@ -35,6 +35,34 @@
       {{ with .Site.Author.email }}<author>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</author>{{end}}
       <guid>{{ .Permalink }}</guid>
       <description>{{ (default .Summary .Description) | html }}</description>
+      {{- $image := "" -}}
+      {{- $page := . -}}
+      {{- with .Params.images -}}
+        {{- range . -}}
+          {{- $file := . -}}
+          {{- if and (not (findRE "^(http)" $file)) (not (fileExists $file)) -}}
+            {{ $file = path.Join $page.Dir $file }}
+          {{- end -}}
+          {{- if not $image -}}
+            {{- if fileExists $file -}}
+              {{- $image = readFile $file | resources.FromString (printf "feature/%s" $file) -}}
+              {{- $image = $image.Permalink -}}
+            {{- else -}}
+              {{- $image = $file -}}
+            {{- end -}}
+          {{- end -}}
+        {{ end -}}
+      {{- else -}}
+        {{- $images := $page.Resources.ByType "image" -}}
+        {{- $featured := $images.GetMatch "{*feature*,*header*}" -}}
+        {{- if not $featured }}{{ $featured = $images.GetMatch "{*cover*,*thumbnail*}" }}{{ end -}}
+        {{- with $featured -}}
+          {{ $image = $featured.Permalink }}
+        {{- else -}}
+          {{- with $.Site.Params.images -}}{{ $image = index . 0 | absURL }}{{ end -}}
+        {{- end -}}
+      {{- end -}}
+      {{- with $image -}}<image><url>{{ . }}</url></image>{{- end -}}
       <content:encoded>{{ printf "<![CDATA[%s]]>" (.Content | safeHTML) | safeHTML }}</content:encoded>
     </item>
     {{ end }}
