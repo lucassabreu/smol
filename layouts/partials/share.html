@@ -21,5 +21,11 @@
 		>
 			Pinterest
 		</a>
+		<a
+			href="http://www.linkedin.com/shareArticle?mini=true&url={{ .Permalink | safeHTML }}&title={{ (printf "%s - %s" .Title .Site.Title) | safeHTML }}"
+			onclick="window.open(this.href, 'linkedin-share','width=680,height=540');return false;"
+		>
+			Linkedin
+		</a>
 	</p>
 </section>
